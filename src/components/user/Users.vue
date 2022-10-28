@@ -220,7 +220,7 @@ export default {
       queryInfo: {
         query: '',
         pagenum: 1,
-        pagesize: 2
+        pagesize: 3
       },
       userlist: [],
       total: 0,

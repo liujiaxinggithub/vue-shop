@@ -111,8 +111,8 @@
         ref="addRoleRef"
         label-width="80px"
       >
-        <el-form-item label="角色名称" prop="username">
-          <el-input v-model="addRole.username"></el-input>
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="addRole.roleName"></el-input>
         </el-form-item>
         <el-form-item label="角色描述" prop="discribe">
           <el-input v-model="addRole.discribe"></el-input>
@@ -180,11 +180,11 @@ export default {
       dialogVisible: false,
       editDialogVisible: false,
       addRole: {
-        username: '',
+        roleName: '',
         discribe: ''
       },
       addRoleRules: {
-        username: [
+        roleName: [
           { required: true, message: '请输入角色名称', trigger: 'blur' }
         ],
         discribe: [
@@ -231,7 +231,7 @@ export default {
         const { data: res } = await this.$http.post('roles', this.addRole)
 
         if (res.meta.status !== 201) {
-          this.$message.error('添加角色失败！')
+          return this.$message.error('添加角色失败！')
         }
         this.$message.success('添加角色成功！')
         this.dialogVisible = false
@@ -251,12 +251,14 @@ export default {
       this.$refs.editFormRef.resetFields()
     },
     editRoleInfo() {
+      // step
       this.$refs.editFormRef.validate(async (valid) => {
         // console.log(valid)
+        console.log('---')
+        console.log(this.editForm)
         if (!valid) return
-
         const { data: res } = await this.$http.put(
-          'roles/' + this.editForm.id,
+          'roles/' + this.editForm.roleId,
           {
             roleName: this.editForm.roleName,
             roleDesc: this.editForm.roleDesc
